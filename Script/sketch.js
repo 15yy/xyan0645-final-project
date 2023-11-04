@@ -29,6 +29,27 @@ let PacmanSpeed = 3;
 
 function setup() {
   background(220);
+
+  window.addEventListener("keydown", keyPressed);
+}
+
+function keyPressed(event) {
+  // 根据按下的键来更新 Ghost 的位置
+  const step = 10 * Size; // 调整移动的步长
+
+  if (event.key === 'w') {
+    // 向上移动 Ghost
+    GhostYpos -= step;
+  } else if (event.key === 's') {
+    // 向下移动 Ghost
+    GhostYpos += step;
+  } else if (event.key === 'a') {
+    // 向左移动 Ghost
+    GhostXpos -= step;
+  } else if (event.key === 'd') {
+    // 向右移动 Ghost
+    GhostXpos += step;
+  }
 }
 
 
@@ -37,6 +58,7 @@ function draw() {
   colorMode(RGB);
   background(255,255,20);
   drawCreeper(0*Size,300*Size,Size)
+  Drawghost(GhostXpos * Size, GhostYpos * Size, Size);
   GenerateMap(6,8,Size)
   GeneratePacMan();
   GenerateTrees(15)
