@@ -1,4 +1,4 @@
-//public variable
+
 let IsmapGenerate = 0;
 let IsTreeGenerate = 0;
 let IsPacManGenerate = 0;
@@ -25,31 +25,15 @@ let GhostYpos = 0;
 let eyeWidth = 25;
 let eyeHeight = 25; 
 let PacmanSpeed = 3; 
+let GhostSpeed = 3;
+
 
 
 function setup() {
   background(220);
 
-  window.addEventListener("keydown", keyPressed);
-}
-
-function keyPressed(event) {
-  // 根据按下的键来更新 Ghost 的位置
-  const step = 10 * Size; // 调整移动的步长
-
-  if (event.key === 'w') {
-    // 向上移动 Ghost
-    GhostYpos -= step;
-  } else if (event.key === 's') {
-    // 向下移动 Ghost
-    GhostYpos += step;
-  } else if (event.key === 'a') {
-    // 向左移动 Ghost
-    GhostXpos -= step;
-  } else if (event.key === 'd') {
-    // 向右移动 Ghost
-    GhostXpos += step;
-  }
+  GhostXpos = CanvasSize / 2;
+  GhostYpos = CanvasSize / 2;
 }
 
 
@@ -58,13 +42,14 @@ function draw() {
   colorMode(RGB);
   background(255,255,20);
   drawCreeper(0*Size,300*Size,Size)
-  Drawghost(GhostXpos * Size, GhostYpos * Size, Size);
   GenerateMap(6,8,Size)
   GeneratePacMan();
   GenerateTrees(15)
   Generateghost(200*Size,300*Size,Size)
+  moveGhost(); 
   //DrawTrees(200,200,1)
   Respond();
+  
 
   if (keyIsDown(LEFT_ARROW)) {
     // 向左移动 Pac-Man
@@ -84,6 +69,24 @@ function draw() {
   // 绘制 Pac-Man
   DrawPacMan(PacmanXpos * Size, PacmanYpos * Size, Size);
 }
+
+function moveGhost() {
+  if (keyIsDown(87)) {
+    // "W" key: Move the ghost up
+    GhostYpos -= GhostSpeed;
+  } else if (keyIsDown(83)) {
+    // "S" key: Move the ghost down
+    GhostYpos += GhostSpeed;
+  }
+  if (keyIsDown(65)) {
+    // "A" key: Move the ghost left
+    GhostXpos -= GhostSpeed;
+  } else if (keyIsDown(68)) {
+    // "D" key: Move the ghost right
+    GhostXpos += GhostSpeed;
+  }
+}
+
 
 // to generate the road map
 function GenerateMap(NumOfHorizontalRoad,NumOfVerticalRoad,Size){
