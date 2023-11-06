@@ -34,6 +34,8 @@ function setup() {
 
   GhostXpos = CanvasSize / 2;
   GhostYpos = CanvasSize / 2;
+
+  GhostSize = 20; // Initial size of the ghost
 }
 
 
@@ -47,26 +49,29 @@ function draw() {
   GenerateTrees(15)
   Generateghost(200*Size,300*Size,Size)
   moveGhost(); 
+  GhostSize += 0.1; // Adjust this value as needed to control the growth rate
+  Drawghost(GhostXpos * Size, GhostYpos * Size, Size);
+  checkCollision(); // Check for collisions
   //DrawTrees(200,200,1)
   Respond();
   
 
   if (keyIsDown(LEFT_ARROW)) {
-    // 向左移动 Pac-Man
+    // Move Pac-Man to the left
     PacmanXpos -= PacmanSpeed;
   } else if (keyIsDown(RIGHT_ARROW)) {
-    // 向右移动 Pac-Man
+    // Move Pac-Man to the right
     PacmanXpos += PacmanSpeed;
   }
   if (keyIsDown(UP_ARROW)) {
-    // 向上移动 Pac-Man
+    // Move up Pac-Man
     PacmanYpos -= PacmanSpeed;
   } else if (keyIsDown(DOWN_ARROW)) {
-    // 向下移动 Pac-Man
+    // Move down Pac-Man
     PacmanYpos += PacmanSpeed;
   }
 
-  // 绘制 Pac-Man
+  // Draw Pac-Man
   DrawPacMan(PacmanXpos * Size, PacmanYpos * Size, Size);
 }
 
@@ -86,6 +91,23 @@ function moveGhost() {
     GhostXpos += GhostSpeed;
   }
 }
+
+function checkCollision() {
+  let distance = dist(PacmanXpos, PacmanYpos, GhostXpos, GhostYpos);
+  let pacManRadius = 10 * Size; // Adjust this value based on Pac-Man's size
+  let ghostRadius = 10 * Size; // Adjust this value based on Ghost's size
+
+  if (distance < pacManRadius + ghostRadius) {
+
+    GhostSize += 1;
+    // Pac-Man and the ghost are colliding, so Pac-Man disappears.
+    PacmanXpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
+    PacmanYpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
+  
+    // You can also reset Pac-Man's position here or perform any other actions.
+  }
+}
+
 
 
 // to generate the road map
@@ -363,6 +385,8 @@ function Generateghost(){
 
 //draw ghost
 function Drawghost(x, y, size){
+
+  let ghostSize = GhostSize * size;
   //the color of ghost is yellow
   fill(255, 204, 0);
   stroke(0);
