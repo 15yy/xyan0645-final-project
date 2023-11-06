@@ -1,4 +1,3 @@
-
 let IsmapGenerate = 0;
 let IsTreeGenerate = 0;
 let IsPacManGenerate = 0;
