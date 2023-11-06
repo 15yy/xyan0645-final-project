@@ -1,3 +1,4 @@
+
 let IsmapGenerate = 0;
 let IsTreeGenerate = 0;
 let IsPacManGenerate = 0;
@@ -48,7 +49,6 @@ function draw() {
   GenerateTrees(15)
   Generateghost(200*Size,300*Size,Size)
   moveGhost(); 
-  GhostSize += 0.1; // Adjust this value as needed to control the growth rate
   Drawghost(GhostXpos * Size, GhostYpos * Size, Size);
   checkCollision(); // Check for collisions
   //DrawTrees(200,200,1)
@@ -98,7 +98,6 @@ function checkCollision() {
 
   if (distance < pacManRadius + ghostRadius) {
 
-    GhostSize += 1;
     // Pac-Man and the ghost are colliding, so Pac-Man disappears.
     PacmanXpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
     PacmanYpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
