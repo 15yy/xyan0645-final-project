@@ -93,16 +93,15 @@ function moveGhost() {
 
 function checkCollision() {
   let distance = dist(PacmanXpos, PacmanYpos, GhostXpos, GhostYpos);
-  let pacManRadius = 10 * Size; // Adjust this value based on Pac-Man's size
-  let ghostRadius = 10 * Size; // Adjust this value based on Ghost's size
+  let pacManRadius = 10 * Size; 
+  let ghostRadius = 10 * Size; 
 
   if (distance < pacManRadius + ghostRadius) {
 
-    // Pac-Man and the ghost are colliding, so Pac-Man disappears.
+
     PacmanXpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
     PacmanYpos = random(0 + 10 * Size, CanvasSize - 10 * Size);
   
-    // You can also reset Pac-Man's position here or perform any other actions.
   }
 }
 
